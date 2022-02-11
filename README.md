@@ -6,6 +6,7 @@ The purpose of this repo is to deploy an environment to AWS.
 - Public subnets across all specified availability zones.
 - 1 EC2 instance on each public subnet.
 - ALB serving port 80 of each instance.
+- Deploy Nginx Docker container to each instance
 
 ## Premises
 
