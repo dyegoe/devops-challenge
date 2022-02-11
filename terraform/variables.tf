@@ -28,6 +28,17 @@ variable "project_name" {
   default     = "devops-challenge"
 }
 
+variable "project_name_prefix" {
+  type        = string
+  description = "A short (5 chars) name to identify some resources."
+  default     = "dvoc-"
+
+  validation {
+    condition     = can(regex("^[a-z0-9-]{1,5}$", var.project_name_prefix))
+    error_message = "You must provide a name that contains only lowercase letters, numbers and dash (-). Maximum of 5 chars."
+  }
+}
+
 variable "vpc_cidr" {
   type    = string
   default = "10.161.0.0/24"

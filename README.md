@@ -39,8 +39,10 @@ terraform apply dev.plan
 
 ## References
 
-- [AWS VPC Module](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest).
-- [AWS Provider default tags](https://www.hashicorp.com/blog/default-tags-in-the-terraform-aws-provider).
+- [Terraform AWS VPC Module](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest).
+- [Terraform AWS ALB Module](https://registry.terraform.io/modules/terraform-aws-modules/alb/aws/latest).
+- [Terraform AWS Provider default tags](https://www.hashicorp.com/blog/default-tags-in-the-terraform-aws-provider).
+- [Terraform AWS LB target group attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group_attachment).
 - [Terraform length](https://www.terraform.io/language/functions/length)
 - [Terraform count](https://www.terraform.io/language/meta-arguments/count)
 - [Terraform custom validation rule](https://www.terraform.io/language/values/variables#custom-validation-rules)
