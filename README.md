@@ -16,10 +16,6 @@ The purpose of this repo is to deploy an environment to AWS.
 - Boto and Boto3 Python library.
 - An AWS account with pragmatic access (access key id and secret access key). Information [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
 
-## Modules
-
-EC2 Module create by myself. You can find more about it [here](modules/ec2/README.md).
-
 ## Setup the environment
 
 Setup your AWS access and secret keys into `~/.aws/credentials`.
@@ -39,6 +35,16 @@ First of all, verify `variables.tf` and if it has the correct values that you ar
 
 The variable `project_name` is used across Terraform to name the resources on AWS.
 
+EC2 Module create by myself. You can find more about it [here](modules/ec2/README.md).
+
+#### Apply terraform
+
+```txt
+terraform init
+terraform plan -out dev.plan
+terraform apply dev.plan
+```
+
 ### Ansible
 
 This playbook uses AWS EC2 Inventory. It is a dynamic inventory. Edit inventory file `ansible/inventory/aws_ec2.yaml` and match the region that you deployed Terraform infra.
@@ -55,14 +61,6 @@ Edit `ansible/playbook.yaml` and match hosts as your `project_name` used on Terr
 
 ```txt
 hosts: devops_challenge
-```
-
-## Apply terraform
-
-```txt
-terraform init
-terraform plan -out dev.plan
-terraform apply dev.plan
 ```
 
 ## References
