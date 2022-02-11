@@ -1,0 +1,24 @@
+# VScode files
+.vscode/
+
+# Terraform local directories
+**/.terraform/*
+
+# Terraform state file because sensitive data
+*.tfstate
+*.tfstate.*
+
+# Terraform plans
+*.plan
+
+# Terraform lock
+.terraform.lock.hcl
+
+# Sensitive tfvars
+secure.auto.tfvars
+
+# Ansible retry
+*.retry
+
+# PEM files
+*.pem
