@@ -1,0 +1,68 @@
+resource "aws_security_group" "this" {
+  name        = substr(format("%s-%s", var.name, replace(uuid(), "-", "")), 0, 32)
+  description = "Access related to ${var.name} EC2 instance"
+  vpc_id      = var.vpc_id
+  tags = {
+    "Name" = var.name
+  }
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes        = [name]
+  }
+}
+
+resource "aws_security_group_rule" "this" {
+  type              = "ingress"
+  from_port         = "22"
+  to_port           = "22"
+  protocol          = "TCP"
+  cidr_blocks       = ["0.0.0.0/0"]
+  description       = "Allow SSH from anywhere"
+  security_group_id = aws_security_group.this.id
+}
+
+resource "aws_instance" "this" {
+  ami                     = var.ami
+  disable_api_termination = false
+  ebs_optimized           = true
+  instance_type           = var.instance_type
+  subnet_id               = var.subnet_id
+  key_name                = var.key_name
+  monitoring              = true
+  iam_instance_profile    = aws_iam_instance_profile.this.name
+  vpc_security_group_ids = [
+    aws_security_group.this.id
+  ]
+  credit_specification {
+    cpu_credits = "unlimited"
+  }
+  root_block_device {
+    delete_on_termination = true
+    encrypted             = false
+    volume_size           = var.volume_size
+    volume_type           = "gp2"
+  }
+  volume_tags = {
+    "Name" = var.name
+  }
+  tags = {
+    "Name" = var.name
+  }
+}
+
+resource "aws_eip" "this" {
+  vpc = true
+  tags = {
+    "Name" = var.name
+  }
+}
+
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_instance.this.id
+  allocation_id = aws_eip.this.id
+}
+
+resource "aws_cloudwatch_log_group" "this" {
+  name              = var.name
+  retention_in_days = 30
+}
