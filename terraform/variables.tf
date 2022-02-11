@@ -11,18 +11,21 @@ variable "aws_secret_access_key" {
 }
 
 variable "azs" {
-  type    = list(string)
-  default = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  type        = list(string)
+  description = "List of the availability zones to create the subnets."
+  default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
 }
 
 variable "environment" {
-  type    = string
-  default = "dev"
+  type        = string
+  description = "An environment identifier. It is use for tagging."
+  default     = "dev"
 }
 
 variable "project_name" {
-  type    = string
-  default = "devops-challenge"
+  type        = string
+  description = "A project name to use across the resources created using this terraform."
+  default     = "devops-challenge"
 }
 
 variable "vpc_cidr" {
@@ -31,6 +34,23 @@ variable "vpc_cidr" {
 }
 
 variable "public_subnets" {
-  type    = list(string)
-  default = ["10.161.0.0/26", "10.161.0.64/26", "10.161.0.128/26"]
+  type        = list(string)
+  description = "Public subnets CIDR. It must be as many as the AZ quantity."
+  default     = ["10.161.0.0/26", "10.161.0.64/26", "10.161.0.128/26"]
+}
+
+variable "ami" {
+  type    = string
+  default = "ami-033b95fb8079dc481"
+}
+
+variable "key_name" {
+  type        = string
+  description = "A key pair name previously created on AWS."
+  default     = "devops-challenge"
+}
+
+variable "instance_type" {
+  type    = string
+  default = "t3.micro"
 }

@@ -20,3 +20,15 @@ module "vpc" {
   azs            = var.azs
   public_subnets = var.public_subnets
 }
+
+module "ec2" {
+  count  = length(module.vpc.public_subnets)
+  source = "./modules/ec2/"
+
+  name          = "${var.project_name}-${count.index}"
+  ami           = var.ami
+  key_name      = var.key_name
+  instance_type = var.instance_type
+  vpc_id        = module.vpc.vpc_id
+  subnet_id     = element(module.vpc.public_subnets, count.index)
+}

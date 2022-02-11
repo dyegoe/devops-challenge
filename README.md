@@ -12,18 +12,13 @@ The purpose of this repo is to deploy an environment to AWS.
 - Terraform installed. You can find more information [here](https://learn.hashicorp.com/tutorials/terraform/install-cli).
 - An AWS account with pragmatic access (access key id and secret access key). Information [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
 
+## Modules
+
+EC2 Module create by myself. You can find more about it [here](modules/ec2/README.md).
+
 ## Setup the environment
 
-First of all, verify `terraform.tfvars` and if it has the correct values that you are expecting. e.g.
-
-```conf
-region = "us-east-1"
-azs = ["us-east-1a", "us-east-1b", "us-east-1c"]
-environment = "dev"
-project_name = "devops-challenge"
-vpc_cidr = "10.161.0.0/24"
-public_subnets = ["10.161.0.0/26", "10.161.0.64/26", "10.161.0.128/26"]
-```
+First of all, verify `variables.tf` and if it has the correct values that you are expecting for.
 
 The variable `project_name` will be used across Terraform to name the resources on AWS.
 
@@ -46,3 +41,6 @@ terraform apply dev.plan
 
 - [AWS VPC Module](https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/latest).
 - [AWS Provider default tags](https://www.hashicorp.com/blog/default-tags-in-the-terraform-aws-provider).
+- [Terraform length](https://www.terraform.io/language/functions/length)
+- [Terraform count](https://www.terraform.io/language/meta-arguments/count)
+- [Terraform custom validation rule](https://www.terraform.io/language/values/variables#custom-validation-rules)
