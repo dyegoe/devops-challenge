@@ -1,0 +1,5 @@
+---
+- hosts: devops_challenge
+  tasks:
+    - name: Ping
+      ping:
