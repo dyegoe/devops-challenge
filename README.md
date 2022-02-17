@@ -17,10 +17,6 @@ The purpose of this repo is to deploy an environment to AWS.
 - An AWS account with pragmatic access (access key id and secret access key). Information [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
 - You will use Amazon Linux 2 AMI.
 
-## Modules
-
-EC2 Module create by myself. You can find more about it [here](modules/ec2/README.md).
-
 ## Setup the environment
 
 Setup your AWS access and secret keys into `~/.aws/credentials`.
@@ -44,9 +40,19 @@ chmod 400 ansible/devops-challenge.pem
 
 ### Terraform
 
-First of all, verify `variables.tf` and if it has the correct values that you are expecting for.
+First of all, verify `./terraform/variables.tf` and if it has the correct values that you are expecting for.
 
 The variable `project_name` is used across Terraform to name the resources on AWS.
+
+EC2 Module create by myself. You can find more about it [here](modules/ec2/README.md).
+
+#### Apply terraform
+
+```txt
+terraform init
+terraform plan -out dev.plan
+terraform apply dev.plan
+```
 
 ### Ansible
 
@@ -73,14 +79,6 @@ hosts: devops_challenge
 ```
 
 Double check `./ansible/ansible.cfg` if `remote_user` matches the default user for your AMI.
-
-## Apply terraform
-
-```txt
-terraform init
-terraform plan -out dev.plan
-terraform apply dev.plan
-```
 
 ## References
 
