@@ -40,13 +40,23 @@ resource "aws_security_group" "this" {
   }
 }
 
-resource "aws_security_group_rule" "this" {
+resource "aws_security_group_rule" "this_all_ssh" {
   type              = "ingress"
   from_port         = "22"
   to_port           = "22"
   protocol          = "TCP"
   cidr_blocks       = ["0.0.0.0/0"]
   description       = "Allow SSH from anywhere"
+  security_group_id = aws_security_group.this.id
+}
+
+resource "aws_security_group_rule" "this_all_egress" {
+  type              = "egress"
+  from_port         = "0"
+  to_port           = "0"
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  description       = "Allow all egress traffic"
   security_group_id = aws_security_group.this.id
 }
 
