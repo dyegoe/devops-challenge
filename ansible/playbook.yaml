@@ -1,5 +1,49 @@
 ---
 - hosts: devops_challenge
+  become: true
   tasks:
-    - name: Ping
-      ping:
+    - name: Get EC2 metadata
+      ec2_metadata_facts:
+    - name: Get EC2 instance info
+      ec2_instance_info:
+        instance_ids: '{{ ansible_ec2_instance_id }}'
+        region: '{{ ansible_ec2_placement_region }}'
+      register: instance_info
+      delegate_to: localhost
+      become: false
+    - name: Create a directory if it does not exist
+      file:
+        path: /var/www/html
+        state: directory
+        mode: '0755'
+    - name: Install Docker
+      yum:
+        name: ["docker", "python-pip"]
+        state: present
+    - name: Enable and start Docker service
+      service:
+        name: docker
+        state: restarted
+        enabled: yes
+    - name: Install docker-py
+      pip:
+        name: docker-py
+        state: present
+    - name: Copy index.html.j2 to remote hosts
+      template:
+        src: "{{ playbook_dir }}/files/index.html.j2"
+        dest: "/var/www/html/index.html"
+    - name: Deploy NGinx container
+      docker_container:
+        name: nginx
+        image: nginx
+        ports:
+          # <host port>:<container port>
+          - "80:80"
+        volumes:
+          - /var/www/html/:/usr/share/nginx/html/
+        log_driver: awslogs
+        log_options:
+          awslogs-region: "{{ ansible_ec2_instance_identity_document_region }}"
+          awslogs-group: "{{ instance_info.instances[0].tags.Name }}"
+        container_default_behavior: "no_defaults"
