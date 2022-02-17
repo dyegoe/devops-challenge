@@ -1,5 +1,7 @@
 # devops-challenge
 
+First of all, take a look into [Challenge](Challenge.md) specs.
+
 The purpose of this repo is to deploy an environment to AWS.
 
 - VPC.
@@ -49,6 +51,7 @@ EC2 Module create by myself. You can find more about it [here](modules/ec2/READM
 #### Apply terraform
 
 ```txt
+cd terraform/
 terraform init
 terraform plan -out dev.plan
 terraform apply dev.plan
@@ -78,7 +81,14 @@ Edit `./ansible/playbook.yaml` and match hosts as your `project_name` used on Te
 hosts: devops_challenge
 ```
 
-Double check `./ansible/ansible.cfg` if `remote_user` matches the default user for your AMI.
+Double check `./ansible/ansible.cfg` if `remote_user` matches the default user for your AMI. NB! If you are using Amazon Linux 2, don't worry.
+
+#### Apply Ansible
+
+```txt
+cd ../ansible
+ansible-playbook playbook.yaml
+```
 
 ## References
 
