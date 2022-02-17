@@ -3,13 +3,6 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "aws_access_key_id" {
-  type = string
-}
-variable "aws_secret_access_key" {
-  type = string
-}
-
 variable "azs" {
   type        = list(string)
   description = "List of the availability zones to create the subnets."
