@@ -33,6 +33,14 @@ aws_access_key_id = AKIAxxxxxxxxxxxxxxxx
 aws_secret_access_key = 2zcixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
+[Create a SSH Key pair](https://docs.aws.amazon.com/ground-station/latest/ug/create-ec2-ssh-key-pair.html) in your AWS Console, take the downloaded `.pem` file and save it to `./ansible/`.
+Make sure that the key name is the same as `var.key_name` in `./terraform/variables.tf` and `private_key_file` in `./ansible/ansible.cfg`.
+After copying the file to `./ansible` directory, make sure that you reduce the privileges to the file
+
+```txt
+chmod 400 ansible/devops-challenge.pem
+```
+
 ### Terraform
 
 First of all, verify `variables.tf` and if it has the correct values that you are expecting for.
@@ -41,7 +49,13 @@ The variable `project_name` is used across Terraform to name the resources on AW
 
 ### Ansible
 
-This playbook uses AWS EC2 Inventory. It is a dynamic inventory. Edit inventory file `ansible/inventory/aws_ec2.yaml` and match the region that you deployed Terraform infra.
+As mention in the premisses, make sure that you have the Ansible AWS plugin
+
+```txt
+ansible-galaxy collection install amazon.aws
+```
+
+This playbook uses AWS EC2 Inventory. It is a dynamic inventory. Edit inventory file `./ansible/inventory/aws_ec2.yaml` and match the region that you deployed Terraform infra.
 
 ```txt
 plugin: aws_ec2
@@ -56,6 +70,8 @@ Edit `ansible/playbook.yaml` and match hosts as your `project_name` used on Terr
 ```txt
 hosts: devops_challenge
 ```
+
+Double check `ansible/ansible.cfg` if `remote_user` matches the default user for your AMI and if you will need `sudo` access. If you need, let `become = true`, otherwise, set it to false.
 
 ## Apply terraform
 

@@ -1,5 +1,7 @@
 ---
 - hosts: devops_challenge
   tasks:
-    - name: Ping
-      ping:
+    - name: Install Docker
+      package:
+        name: docker
+        state: present
