@@ -11,9 +11,6 @@
       register: instance_info
       delegate_to: localhost
       become: false
-    # - name: Debug
-    #   debug:
-    #     var: instance_info.instances[0]
     - name: Create a directory if it does not exist
       file:
         path: /var/www/html
@@ -44,7 +41,7 @@
           # <host port>:<container port>
           - "80:80"
         volumes:
-          - /var/www/html/:/usr/share/html/
+          - /var/www/html/:/usr/share/nginx/html/
         log_driver: awslogs
         log_options:
           awslogs-region: "{{ ansible_ec2_instance_identity_document_region }}"
