@@ -31,7 +31,7 @@ aws_secret_access_key = 2zcixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ### Terraform
 
-First of all, verify `variables.tf` and if it has the correct values that you are expecting for.
+First of all, verify `./terraform/variables.tf` and if it has the correct values that you are expecting for.
 
 The variable `project_name` is used across Terraform to name the resources on AWS.
 
