@@ -54,8 +54,6 @@ resource "aws_security_group" "alb" {
 resource "aws_vpc_security_group_egress_rule" "alb_all_egress" {
   security_group_id = aws_security_group.alb.id
   description       = "Allow all egress traffic"
-  from_port         = 0
-  to_port           = 0
   ip_protocol       = "-1"
   cidr_ipv4         = "0.0.0.0/0"
 
@@ -80,12 +78,12 @@ resource "aws_vpc_security_group_ingress_rule" "alb_all_http" {
 resource "aws_vpc_security_group_ingress_rule" "instance_alb_http" {
   count = length(module.ec2)
 
-  security_group_id            = aws_security_group.alb.id
+  security_group_id            = module.ec2[count.index].security_group_id
   description                  = "Allow HTTP from ALB"
   from_port                    = 80
   to_port                      = 80
   ip_protocol                  = "TCP"
-  referenced_security_group_id = module.ec2[count.index].security_group_id
+  referenced_security_group_id = aws_security_group.alb.id
 
   tags = {
     Name = "${module.ec2[count.index].name}-http-alb-ingress"
