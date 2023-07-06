@@ -13,7 +13,7 @@ module "alb" {
   target_groups = [
     {
       name_prefix      = var.project_name_prefix
-      backend_protocol = "HTTP"
+      backend_protocol = "HTTPS"
       backend_port     = 80
       target_type      = "instance"
       targets          = ["test"]
