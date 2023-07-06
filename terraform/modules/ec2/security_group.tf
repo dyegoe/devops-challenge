@@ -36,7 +36,7 @@ resource "aws_vpc_security_group_ingress_rule" "this_all_ingress" {
   cidr_ipv4         = "0.0.0.0/0"
 
   tags = {
-    Name     = "${var.name}-all-ingress"
+    Name     = "${var.name}-ssh-all-ingress"
     Instance = var.name
   }
 }
