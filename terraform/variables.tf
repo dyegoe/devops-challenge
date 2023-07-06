@@ -24,11 +24,11 @@ variable "project_name" {
 variable "project_name_prefix" {
   type        = string
   description = "A short (5 chars) name to identify some resources."
-  default     = "dvoc-"
+  default     = "dvop-"
 
   validation {
-    condition     = can(regex("^[a-z0-9-]{1,5}$", var.project_name_prefix))
-    error_message = "You must provide a name that contains only lowercase letters, numbers and dash (-). Maximum of 5 chars."
+    condition     = can(regex("^[a-z0-9-]{1,4}-$", var.project_name_prefix))
+    error_message = "You must provide a name that contains only lowercase letters, numbers and end with dash (-). Maximum of 5 chars."
   }
 }
 
@@ -51,7 +51,7 @@ variable "ami" {
 variable "key_name" {
   type        = string
   description = "A key pair name previously created on AWS."
-  default     = "devops-challenge"
+  default     = "default"
 }
 
 variable "instance_type" {
