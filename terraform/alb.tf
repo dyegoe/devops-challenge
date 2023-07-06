@@ -16,7 +16,7 @@ module "alb" {
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
-      targets          = []
+      targets          = ["test"]
     }
   ]
 
