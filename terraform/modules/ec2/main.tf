@@ -61,7 +61,6 @@ resource "aws_security_group_rule" "this_all_egress" {
 }
 
 resource "aws_eip" "this" {
-  vpc = true
   tags = {
     "Name" = var.name
   }
