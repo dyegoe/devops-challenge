@@ -1,40 +1,49 @@
 ---
-- hosts: devops_challenge
+- name: Deploy NGinx container
+  hosts: devops_challenge
   become: true
   tasks:
     - name: Get EC2 metadata
-      ec2_metadata_facts:
+      amazon.aws.ec2_metadata_facts:
+
     - name: Get EC2 instance info
-      ec2_instance_info:
+      amazon.aws.ec2_instance_info:
         instance_ids: '{{ ansible_ec2_instance_id }}'
         region: '{{ ansible_ec2_placement_region }}'
       register: instance_info
       delegate_to: localhost
       become: false
+
     - name: Create a directory if it does not exist
-      file:
+      ansible.builtin.file:
         path: /var/www/html
         state: directory
         mode: '0755'
+
     - name: Install Docker
-      yum:
+      ansible.builtin.yum:
         name: ["docker", "python-pip"]
         state: present
-    - name: Enable and start Docker service
-      service:
-        name: docker
-        state: restarted
-        enabled: yes
-    - name: Install docker-py
-      pip:
+
+    - name: Install Docker-py
+      ansible.builtin.pip:
         name: docker-py
         state: present
-    - name: Copy index.html.j2 to remote hosts
-      template:
+
+    - name: Enable and start Docker service
+      ansible.builtin.service:
+        name: docker
+        state: restarted
+        enabled: true
+
+    - name: Copy template index.html.j2 to remote hosts
+      ansible.builtin.template:
         src: "{{ playbook_dir }}/files/index.html.j2"
         dest: "/var/www/html/index.html"
+        mode: '0644'
+
     - name: Deploy NGinx container
-      docker_container:
+      community.general.docker_container:
         name: nginx
         image: nginx
         ports:
