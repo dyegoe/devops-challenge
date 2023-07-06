@@ -3,5 +3,7 @@ output "alb_url" {
 }
 
 output "instances_ips" {
-  value = module.ec2[*].public_ip
+  value = {
+    for instance in module.ec2 : instance.name => instance.public_ip
+  }
 }

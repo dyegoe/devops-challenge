@@ -1,3 +1,8 @@
+output "name" {
+  value       = var.name
+  description = "The name of the EC2 instance."
+}
+
 output "instance_id" {
   value       = aws_instance.this.id
   description = "Instance ID. e.g. i-0eac781b680a8ae5c."
