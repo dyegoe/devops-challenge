@@ -9,12 +9,12 @@ output "instance_id" {
 }
 
 output "public_ip" {
-  value       = aws_instance.this.public_ip
+  value       = aws_eip.this.public_ip
   description = "The public IP associated to this instance. It is different from the EIP, because Elastic IP will be associated later on."
 }
 
 output "public_ip_cidr" {
-  value       = "${aws_instance.this.public_ip}/32"
+  value       = "${aws_eip.this.public_ip}/32"
   description = "The public IP in CIDR notation. It could be used in the security group rules."
 }
 
