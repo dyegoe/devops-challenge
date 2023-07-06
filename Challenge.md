@@ -17,7 +17,7 @@
 ```txt
 - VPC 10.161.0.0/24.
 - 3 Subnets: 1 per availability zone.
-- 3 EC2 instances.
+- 3 EC2 instances: 1 per availability zone.
 - ALB serving port 80 of each instance.
 ```
 
