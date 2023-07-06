@@ -43,11 +43,6 @@ variable "public_subnets" {
   default     = ["10.161.0.0/26", "10.161.0.64/26", "10.161.0.128/26"]
 }
 
-variable "ami" {
-  type    = string
-  default = "ami-033b95fb8079dc481"
-}
-
 variable "key_name" {
   type        = string
   description = "A key pair name previously created on AWS."
