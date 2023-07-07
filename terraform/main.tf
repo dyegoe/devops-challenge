@@ -11,7 +11,7 @@ provider "aws" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 3.0"
+  version = "~> 5.0"
 
   name = var.project_name
   cidr = var.vpc_cidr
@@ -20,12 +20,16 @@ module "vpc" {
   public_subnets = var.public_subnets
 }
 
+data "aws_ssm_parameter" "al2023" {
+  name = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64"
+}
+
 module "ec2" {
   count  = length(module.vpc.public_subnets)
   source = "./modules/ec2/"
 
   name          = "${var.project_name}-${count.index}"
-  ami           = var.ami
+  ami           = data.aws_ssm_parameter.al2023.value
   key_name      = var.key_name
   instance_type = var.instance_type
   vpc_id        = module.vpc.vpc_id

@@ -17,7 +17,6 @@ The purpose of this repo is to deploy an environment to AWS.
 - Ansible AWS Plugin. `ansible-galaxy collection install amazon.aws`.
 - Boto and Boto3 Python library.
 - An AWS account with pragmatic access (access key id and secret access key). Information [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
-- You will use Amazon Linux 2 AMI.
 
 ## Setup the environment
 
@@ -32,7 +31,12 @@ aws_access_key_id = AKIAxxxxxxxxxxxxxxxx
 aws_secret_access_key = 2zcixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-[Create a SSH Key pair](https://docs.aws.amazon.com/ground-station/latest/ug/create-ec2-ssh-key-pair.html) in your AWS Console, take the downloaded `.pem` file and save it to `./ansible/`.
+### SSH Key pair
+
+If you have have a SSH key pair, just make sure that the correct name is configured in `./terraform/variables.tf` and `./ansible/ansible.cfg`.
+
+If you don´t have a SSH key pair, you can generate one in your AWS Console. You can find more information [here](https://docs.aws.amazon.com/ground-station/latest/ug/create-ec2-ssh-key-pair.html).
+Downloaded `.pem` file and save it to `./ansible/`.
 Make sure that the key name is the same as `var.key_name` in `./terraform/variables.tf` and `private_key_file` in `./ansible/ansible.cfg`.
 After copying the file to `./ansible` directory, make sure that you reduce the privileges to the file
 
