@@ -34,4 +34,5 @@ module "ec2" {
   instance_type = var.instance_type
   vpc_id        = module.vpc.vpc_id
   subnet_id     = element(module.vpc.public_subnets, count.index)
+  depends_on    = [module.vpc]
 }

@@ -1,13 +1,12 @@
 plugin: aws_ec2
-boto_profile: default
 regions:
   - us-east-1
 filters:
   instance-state-name: running
 keyed_groups:
   - key: tags.Project
-    separator: ''
+    separator: ""
   - key: tags.Environment
-    separator: ''
+    separator: ""
 compose:
   ansible_host: public_ip_address

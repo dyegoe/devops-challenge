@@ -1,0 +1,9 @@
+region              = "us-east-1"
+azs                 = ["us-east-1a", "us-east-1b", "us-east-1c"]
+environment         = "dev"
+project_name        = "devops-challenge"
+project_name_prefix = "dvop-"
+vpc_cidr            = "10.161.0.0/24"
+public_subnets      = ["10.161.0.0/26", "10.161.0.64/26", "10.161.0.128/26"]
+key_name            = "default"
+instance_type       = "t3.micro"

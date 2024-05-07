@@ -1,5 +1,5 @@
 output "alb_url" {
-  value = "http://${module.alb.lb_dns_name}"
+  value = "http://${module.alb.dns_name}"
 }
 
 output "instances_ips" {
