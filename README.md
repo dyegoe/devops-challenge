@@ -31,6 +31,8 @@ aws_access_key_id = AKIAxxxxxxxxxxxxxxxx
 aws_secret_access_key = 2zcixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
+Or you can follow one of the options presented [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html).
+
 ### SSH Key pair
 
 If you have have a SSH key pair, just make sure that the correct name is configured in `./terraform/variables.tf` and `./ansible/ansible.cfg`.
